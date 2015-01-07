@@ -1,0 +1,10 @@
+mydata <- read.table("household_power_consumption.txt", header=TRUE, sep=";", na.strings="?")
+t1<-mydata[mydata$Date == "1/2/2007" | mydata$Date == "2/2/2007",]
+t1$DT<-as.POSIXct(paste(t1$Date, t1$Time), format="%d/%m/%Y %H:%M:%S")
+png(filename = "plot3.png", width = 480, height = 480, units = "px")
+plot(t1$DT, t1$Sub_metering_1,type="n", ylab="Energy sub metering", xlab="")
+legend("topright", legend=c("Sub_metering_1","Sub_metering_2","Sub_metering_3"), lty=1, col=c("black","red","blue"))
+points(t1$DT, t1$Sub_metering_1, type="l", lwd=2)
+points(t1$DT, t1$Sub_metering_2, type="l", lwd=2, col="red")
+points(t1$DT, t1$Sub_metering_3, type="l", lwd=2, col="blue")
+dev.off()
